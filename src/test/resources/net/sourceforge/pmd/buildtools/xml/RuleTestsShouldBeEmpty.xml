@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data
+    xmlns="http://pmd.sourceforge.net/rule-tests"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests http://pmd.sourceforge.net/rule-tests_1_0_0.xsd">
+
+    <test-code>
+        <description>class that doesn't extend anything - should not trigger violation</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class StandaloneClass {
+    public void someMethod() {
+        // some code
+    }
+}
+     ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>class that extends some random class - should not trigger violation</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+public class MyTest extends SomeRandomClass {
+    public void testMethod() {
+        // test code
+    }
+}
+     ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>class that extends PmdRuleTst with only comment - should not trigger violation</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import net.sourceforge.pmd.test.PmdRuleTst;
+
+public class RuleTest extends PmdRuleTst {
+    // just a comment
+}
+     ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>class that extends PmdRuleTst with empty body - should not trigger violation</description>
+        <expected-problems>0</expected-problems>
+        <code><![CDATA[
+import net.sourceforge.pmd.test.PmdRuleTst;
+
+public class EmptyRuleTest extends PmdRuleTst {
+}
+     ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>class that extends PmdRuleTst with function call - should trigger violation</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import net.sourceforge.pmd.test.PmdRuleTst;
+
+public class RuleTestWithCall extends PmdRuleTst {
+    public void testSomething() {
+        System.out.println("test");
+    }
+}
+     ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>class that extends PmdRuleTst with constructor - should trigger violation</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import net.sourceforge.pmd.test.PmdRuleTst;
+
+public class RuleTestWithConstructor extends PmdRuleTst {
+    public RuleTestWithConstructor() {
+        super();
+    }
+}
+     ]]></code>
+    </test-code>
+
+    <test-code>
+        <description>class that extends PmdRuleTst with nested class - should trigger violation</description>
+        <expected-problems>1</expected-problems>
+        <code><![CDATA[
+import net.sourceforge.pmd.test.PmdRuleTst;
+
+public class RuleTestWithNested extends PmdRuleTst {
+    private static class NestedClass {
+        // nested content
+    }
+}
+     ]]></code>
+    </test-code>
+</test-data>

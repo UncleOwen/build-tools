@@ -11,4 +11,23 @@
     <rule ref="category/java/bestpractices.xml/JUnit5TestShouldBePackagePrivate">
         <priority>1</priority>
     </rule>
+
+    <rule name="RuleTestsShouldBeEmpty"
+          language="java"
+          since="7.17.0"
+          message="Rule tests should be empty for now"
+          class="net.sourceforge.pmd.lang.rule.xpath.XPathRule">
+        <description>Detects classes that extend net.sourceforge.pmd.test.PmdRuleTst</description>
+        <priority>3</priority>
+        <properties>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+//ClassDeclaration[ExtendsList/ClassType[pmd-java:typeIs('net.sourceforge.pmd.test.PmdRuleTst')]]
+    [ClassBody/*[not(self::Comment)]]
+]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
 </ruleset>
